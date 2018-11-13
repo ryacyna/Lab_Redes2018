@@ -1,19 +1,33 @@
 import socket
 import sys
 import select
+import argparse 
 
-arglen=len(sys.argv)
-if arglen<2:
-    print('Ejemplo: python2 servidor_chat.py 5000')
-    exit()
 
-puerto=int(sys.argv[1])
+parser = argparse.ArgumentParser()
+parser.add_argument("-p", "--port", type=int, help="Puerto del servidor")
+parser.add_argument("-s", "--server", help="Nombre del servidor")
+args = parser.parse_args()
+ 
+enqueport = 10000
+_serv  = "127.0.0.1"
+
+if args.port:
+    print "Conectarse al puerto: ", args.port
+    enqueport = args.port
+
+
+if args.server:
+    print "El nombre del servidor es: ", args.server
+    _serv = args.server
+
+
 
 timeout_in_seconds=60
 
 servidor = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-servidor.bind(("", puerto))
+servidor.bind(( _serv, enqueport))
 servidor.listen(1)
 
 print ' Esperando para conectarse'

@@ -8,10 +8,7 @@ parser.add_argument("-f", "--file", help="Nombre de archivo a procesar")
 args = parser.parse_args()
  
 enqueport = 10000
-#archivo   = 'Palabras_Recibidas.txt'
-#archivo   = open(archivo, 'a')
-
-# Aqui procesamos lo que se tiene que hacer con cada argumento. Sin son pasados.
+archivo   = 'Palabras_Recibidas.txt'
 
 if args.port:
     print "Conectarse al puerto: ", args.port
@@ -20,9 +17,10 @@ if args.port:
 
 if args.file:
     print "El nombre de archivo a procesar es: ", args.file
-    archivo = open(args.file, 'a')
+    archivo = args.file
 
 print ""
+archivo = open(archivo, 'a')
 
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -34,7 +32,6 @@ print >>sys.stderr, 'Iniciando en %s port %s' % server_address
 
 sock.bind(server_address)
 
-#El mensaje es leido usando recvfrom()
 
 while True:
     print >>sys.stderr, '\n Esperando para recibir mensaje ... '
@@ -50,9 +47,9 @@ while True:
         if data=='FIN':
             break
 
-	recibido = 'Datos: ' + data + '\n'
+    recibido = 'Datos: ' + data + '\n'
 
-	archivo.write(recibido)
+    archivo.write(recibido)
 
 
 sock.close()

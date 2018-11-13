@@ -13,11 +13,18 @@ parser.add_argument("-f", "--file", help="Nombre de archivo a procesar")
 parser.add_argument("-s", "--server", help="Dirección IP del Servidor")
 
 args = parser.parse_args()
+
+print args
+
+if args<3:
+    print('Ejemplo: python2 TP0cliente_tag.py -farchivo.tx -s0.0.0.0 -p5000')
+    exit()
+
+
  
 enqueport = 10000
 servidor  = 'localhost'
 
-# Aquí procesamos lo que se tiene que hacer con cada argumento
 if args.port:
     print "Conectarse al puerto: ", args.port
     enqueport = args.port
@@ -30,9 +37,6 @@ if args.file:
     print "El nombre de archivo a procesar es: ", args.file
 
 
-
-
-# Create a UDP socket
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
 server_address = (servidor, enqueport)
